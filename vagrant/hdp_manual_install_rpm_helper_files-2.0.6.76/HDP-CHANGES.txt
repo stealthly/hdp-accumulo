@@ -1,0 +1,1 @@
+bigwheel-GA-2.0.6.0 is branched from bigwheel-beta2-2.0.6.0 (SHA! 64c93c986efb80305cafe3e951ca357dcf8845ac) @ git@github.com:hortonworks/manual_Install.git

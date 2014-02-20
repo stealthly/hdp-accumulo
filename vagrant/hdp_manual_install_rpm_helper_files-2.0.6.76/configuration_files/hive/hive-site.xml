@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+  <configuration>
+    <property>
+    <name>hive.optimize.bucketmapjoin</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.enforce.sorting</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.server2.enable.doAs</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>fs.hdfs.impl.disable.cache</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hadoop.clientside.fs.operations</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.auto.convert.join.noconditionaltask.size</name>
+    <value>1000000000</value>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionUserName</name>
+    <value>TODO-HIVE-METASTORE-USER-NAME</value>
+  </property>
+  <property>       
+   <name>javax.jdo.option.ConnectionPassword</name>       
+   <value>TODO-HIVE-METASTORE-PASSWORD</value>  
+   <description>Enter your MySQL credentials. </description>
+  </property>
+  <property>
+    <name>hive.optimize.mapjoin.mapreduce</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.security.authorization.enabled</name>
+    <value>false</value>
+  </property>
+    <property>
+    <name>fs.file.impl.disable.cache</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.optimize.bucketmapjoin.sortedmerge</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.vectorized.execution.enabled</name>
+    <value>false</value>
+  </property>
+    <property>
+    <name>hive.mapred.reduce.tasks.speculative.execution</name>
+    <value>false</value>
+  </property>
+    <property>
+    <name>javax.jdo.option.ConnectionURL</name>
+    <value>jdbc:mysql://TODO-HIVE-MYSQL-SERVER:TODO-HIVE-MYSQL-PORT/TODO-HIVE-DATABASE-NAME?createDatabaseIfNotExist=true</value>
+  </property>
+    <property>
+    <name>hive.enforce.bucketing</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.auto.convert.join.noconditionaltask</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.optimize.reducededuplication.min.reducer</name>
+    <value>1</value>
+  </property>
+    <property>
+    <name>hive.metastore.uris</name>
+    <value>thrift://TODO-HIVE-METASTORE-SERVER-HOST:9083</value>
+  </property>
+    <property>
+    <name>hive.metastore.execute.setugi</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.optimize.reducededuplication</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.mapjoin.bucket.cache.size</name>
+    <value>10000</value>
+  </property>
+    <property>
+    <name>hive.metastore.client.socket.timeout</name>
+    <value>60</value>
+  </property>
+    <property>
+    <name>hive.auto.convert.join</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.map.aggr</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.metastore.local</name>
+    <value>false</value>
+  </property>
+    <property>
+    <name>hive.metastore.warehouse.dir</name>
+    <value>/apps/hive/warehouse</value>
+  </property>
+    <property>
+    <name>hive.auto.convert.sortmerge.join.noconditionaltask</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.auto.convert.sortmerge.join</name>
+    <value>true</value>
+  </property>
+    <property>
+    <name>hive.semantic.analyzer.factory.impl</name>
+    <value>org.apache.hivealog.cli.HCatSemanticAnalyzerFactory</value>
+  </property>
+    <property>
+    <name>hive.metastore.cache.pinobjtypes</name>
+    <value>Table,Database,Type,FieldSchema,Order</value>
+  </property>
+    <property>
+    <name>javax.jdo.option.ConnectionDriverName</name>
+    <value>com.mysql.jdbc.Driver</value>
+  </property>
+    <property>
+    <name>hive.security.authorization.manager</name>
+    <value>org.apache.hadoop.hive.ql.security.authorization.DefaultHiveAuthorizationProvider</value>
+  </property>
+  </configuration>
