@@ -12,9 +12,16 @@ Use Vagrant to get up and running.
     cd hdp-accumulo
     vagrant up
 
+Now you can access Accumulo from your code on your local machine  
+zk=172.16.25.10  
+instancename=dev  
+username=root  
+password=dev  
 
-
-To acess the Accumulo shell (password == dev)
+  
+To acess the Accumulo shell (password == dev) you can login to the virtual machine
     vagrant ssh
     sudo /usr/lib/accumulo/bin/accumulo shell -u root
+
+
 
