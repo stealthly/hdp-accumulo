@@ -20,6 +20,7 @@ You can access Accumulo from your code on your local machine
 
   
 To acess the Accumulo shell (password == dev) you can login to the virtual machine  
+    
     vagrant ssh
     sudo /usr/lib/accumulo/bin/accumulo shell -u root
 
