@@ -151,8 +151,11 @@ su $MAPRED_USER -c "/usr/lib/hadoop-mapreduce/sbin/mr-jobhistory-daemon.sh --con
 /usr/lib/zookeeper/bin/zkServer.sh start
 
 cd /tmp
-wget http://archive.apache.org/dist/accumulo/1.5.0/accumulo-1.5.0-bin.deb
-dpkg -i accumulo-1.5.0-bin.deb
+wget http://archive.apache.org/dist/accumulo/1.6.0/accumulo-1.6.0-bin.tar.gz
+tar -xvf accumulo-1.6.0-bin.tar.gz
+mkdir -p /usr/lib
+mv accumulo-1.6.0 /usr/lib/accumulo
+mkdir -p /usr/lib/accumulo/conf
 cd /usr/lib/accumulo
 bin/bootstrap_config.sh 1GB 1
 cp -f /vagrant/accumulo-site.xml /usr/lib/accumulo/conf/
