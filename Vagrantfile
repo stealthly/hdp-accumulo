@@ -33,5 +33,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
     hdpaccumulo.vm.provision "shell", path: "vagrant/bootstrap.sh"
   end
-
 end

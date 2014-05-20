@@ -37,7 +37,10 @@ hdp_config_dir=/vagrant/vagrant/hdp_manual_install_rpm_helper_files-2.0.6.76
 . $hdp_config_dir/env.sh
 
 export JAVA_HOME=/usr
+export ACCUMULO_HOME=/usr/lib/accumulo/
 export HADOOP_HOME=/usr/lib/hadoop
+export HADOOP_PREFIX=/usr/lib/hadoop
+export ZOOKEEPER_HOME=/usr/lib/zookeeper/
 
 su $HDFS_USER -c "touch ~/.bashrc"
 su $HDFS_USER -c "echo '. /vagrant/vagrant/hdp_manual_install_rpm_helper_files-2.0.6.76/env.sh' >> ~/.bashrc"
@@ -52,6 +55,8 @@ su vagrant -c "touch ~/.bashrc"
 su vagrant -c "echo '. /vagrant/vagrant/hdp_manual_install_rpm_helper_files-2.0.6.76/env.sh' >> ~/.bashrc"
 su vagrant -c "echo 'export JAVA_HOME=/usr' >> ~/.bashrc"
 su vagrant -c "echo 'export HADOOP_HOME=/usr/lib/hadoop' >> ~/.bashrc"
+su vagrant -c "echo 'export ACCUMULO_HOME=/usr/lib/accumulo/' >> ~/.bashrc"
+su vagrant -c "export ZOOKEEPER_HOME=/usr/lib/zookeeper/"
 
 mkdir -p $DFS_NAME_DIR;
 chown -R $HDFS_USER:$HADOOP_GROUP $DFS_NAME_DIR;
@@ -130,16 +135,6 @@ su $HDFS_USER -c "/usr/lib/hadoop/bin/hadoop namenode -format"
 su $HDFS_USER -c "/usr/lib/hadoop/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR start namenode"
 su $HDFS_USER -c "/usr/lib/hadoop/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR start datanode"
 
-su $YARN_USER -c "export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec"
-su $YARN_USER -c "/usr/lib/hadoop-yarn/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager"
-su $YARN_USER -c "/usr/lib/hadoop-yarn/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start nodemanager"
-
-su $HDFS_USER -c "hadoop fs -mkdir -p /mr-history/tmp"
-su $HDFS_USER -c "hadoop fs -chmod -R 1777 /mr-history/tmp"
-su $HDFS_USER -c "hadoop fs -mkdir -p /mr-history/done"
-su $HDFS_USER -c "hadoop fs -chmod -R 1777 /mr-history/done"
-su $HDFS_USER -c "hadoop fs -chown -R $MAPRED_USER:$HDFS_USER /mr-history"
-
 su $HDFS_USER -c "hadoop fs -mkdir -p /app-logs"
 su $HDFS_USER -c "hadoop fs -chmod -R 1777 /app-logs "
 su $HDFS_USER -c "hadoop fs -chown yarn /app-logs"
@@ -152,12 +147,26 @@ su $MAPRED_USER -c "/usr/lib/hadoop-mapreduce/sbin/mr-jobhistory-daemon.sh --con
 
 cd /tmp
 wget http://archive.apache.org/dist/accumulo/1.6.0/accumulo-1.6.0-bin.tar.gz
+
+su $YARN_USER -c "export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec"
+su $YARN_USER -c "/usr/lib/hadoop-yarn/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager"
+su $YARN_USER -c "/usr/lib/hadoop-yarn/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start nodemanager"
+
+su $HDFS_USER -c "hadoop fs -mkdir -p /mr-history/tmp"
+su $HDFS_USER -c "hadoop fs -chmod -R 1777 /mr-history/tmp"
+su $HDFS_USER -c "hadoop fs -mkdir -p /mr-history/done"
+su $HDFS_USER -c "hadoop fs -chmod -R 1777 /mr-history/done"
 tar -xvf accumulo-1.6.0-bin.tar.gz
 mkdir -p /usr/lib
 mv accumulo-1.6.0 /usr/lib/accumulo
 mkdir -p /usr/lib/accumulo/conf
 cd /usr/lib/accumulo
-bin/bootstrap_config.sh 1GB 1
+bin/bootstrap_config.sh 4 1 2
 cp -f /vagrant/accumulo-site.xml /usr/lib/accumulo/conf/
+cp -f /vagrant/accumulo-env.sh /usr/lib/accumulo/conf/
+cp /vagrant/masters /usr/lib/accumulo/conf/
+cp /vagrant/slaves /usr/lib/accumulo/conf/
 bin/accumulo init --instance-name dev --password dev
 bin/start-all.sh
+
+#sudo $ACCUMULO_HOME/bin/accumulo shell -z dev 172.16.25.10
