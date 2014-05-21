@@ -37,10 +37,14 @@ hdp_config_dir=/vagrant/vagrant/hdp_manual_install_rpm_helper_files-2.0.6.76
 . $hdp_config_dir/env.sh
 
 export JAVA_HOME=/usr
-export ACCUMULO_HOME=/usr/lib/accumulo/
+export ACCUMULO_HOME=/usr/lib/accumulo
 export HADOOP_HOME=/usr/lib/hadoop
 export HADOOP_PREFIX=/usr/lib/hadoop
-export ZOOKEEPER_HOME=/usr/lib/zookeeper/
+export ZOOKEEPER_HOME=/usr/lib/zookeeper
+
+echo 'export JAVA_HOME=/usr' >> ~/.bashrc
+echo 'export HADOOP_HOME=/usr/lib/hadoop' >> ~/.bashrc
+echo 'export ACCUMULO_HOME=/usr/lib/accumulo/' >> ~/.bashrc
 
 su $HDFS_USER -c "touch ~/.bashrc"
 su $HDFS_USER -c "echo '. /vagrant/vagrant/hdp_manual_install_rpm_helper_files-2.0.6.76/env.sh' >> ~/.bashrc"
@@ -161,12 +165,14 @@ mkdir -p /usr/lib
 mv accumulo-1.6.0 /usr/lib/accumulo
 mkdir -p /usr/lib/accumulo/conf
 cd /usr/lib/accumulo
-bin/bootstrap_config.sh 4 1 2
+bin/bootstrap_config.sh 1GB 1
 cp -f /vagrant/accumulo-site.xml /usr/lib/accumulo/conf/
 cp -f /vagrant/accumulo-env.sh /usr/lib/accumulo/conf/
 cp /vagrant/masters /usr/lib/accumulo/conf/
 cp /vagrant/slaves /usr/lib/accumulo/conf/
-bin/accumulo init --instance-name dev --password dev
-bin/start-all.sh
+cp /vagrant/tracers /usr/lib/accumulo/conf/
+cp /vagrant/gc /usr/lib/accumulo/conf/
+#bin/accumulo init --instance-name dev --password dev
+#bin/start-all.sh
 
 #sudo $ACCUMULO_HOME/bin/accumulo shell -z dev 172.16.25.10
