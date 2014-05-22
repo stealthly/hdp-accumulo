@@ -147,6 +147,9 @@ su $HDFS_USER -c "hadoop fs -chown -R $MAPRED_USER:$HDFS_USER /"
 su $MAPRED_USER -c "export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec/"
 su $MAPRED_USER -c "/usr/lib/hadoop-mapreduce/sbin/mr-jobhistory-daemon.sh --config $HADOOP_CONF_DIR start historyserver"
 
+su $MAPRED_USER -c "hadoop fs -mkdir -p /accumulo"
+su $MAPRED_USER -c "hadoop fs -chmod -R 1777 /accumulo"
+
 /usr/lib/zookeeper/bin/zkServer.sh start
 
 cd /tmp
