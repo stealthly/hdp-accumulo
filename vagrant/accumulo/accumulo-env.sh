@@ -42,12 +42,12 @@ test -z "$HADOOP_CONF_DIR"     && export HADOOP_CONF_DIR="$HADOOP_PREFIX/etc/had
 
 test -z "$JAVA_HOME"             && export JAVA_HOME=/usr
 test -z "$ZOOKEEPER_HOME"        && export ZOOKEEPER_HOME=/usr/lib/zookeeper
-test -z "$ACCUMULO_LOG_DIR"      && export ACCUMULO_LOG_DIR=/usr/lib/accumulo/logs
+test -z "$ACCUMULO_LOG_DIR"      && export ACCUMULO_LOG_DIR=$ACCUMULO_HOME/logs
 if [ -f ${ACCUMULO_CONF_DIR}/accumulo.policy ]
 then
    POLICY="-Djava.security.manager -Djava.security.policy=${ACCUMULO_CONF_DIR}/accumulo.policy"
 fi
-test -z "$ACCUMULO_TSERVER_OPTS" && export ACCUMULO_TSERVER_OPTS="${POLICY} -Xmx128m -Xms128m "
+test -z "$ACCUMULO_TSERVER_OPTS" && export ACCUMULO_TSERVER_OPTS="${POLICY} -Xmx384m -Xms384m "
 test -z "$ACCUMULO_MASTER_OPTS"  && export ACCUMULO_MASTER_OPTS="${POLICY} -Xmx128m -Xms128m"
 test -z "$ACCUMULO_MONITOR_OPTS" && export ACCUMULO_MONITOR_OPTS="${POLICY} -Xmx64m -Xms64m"
 test -z "$ACCUMULO_GC_OPTS"      && export ACCUMULO_GC_OPTS="-Xmx64m -Xms64m"

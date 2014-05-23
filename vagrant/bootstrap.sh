@@ -169,13 +169,13 @@ mv accumulo-1.6.0 /usr/lib/accumulo
 mkdir -p /usr/lib/accumulo/conf
 cd /usr/lib/accumulo
 bin/bootstrap_config.sh 1GB 1
-cp -f /vagrant/accumulo-site.xml /usr/lib/accumulo/conf/
-cp -f /vagrant/accumulo-env.sh /usr/lib/accumulo/conf/
-cp /vagrant/masters /usr/lib/accumulo/conf/
-cp /vagrant/slaves /usr/lib/accumulo/conf/
-cp /vagrant/tracers /usr/lib/accumulo/conf/
-cp /vagrant/gc /usr/lib/accumulo/conf/
+#cp -f /vagrant/accumulo-site.xml /usr/lib/accumulo/conf/
+#cp -f /vagrant/accumulo-env.sh /usr/lib/accumulo/conf/
+#cp /vagrant/masters /usr/lib/accumulo/conf/
+#cp /vagrant/slaves /usr/lib/accumulo/conf/
+#cp /vagrant/tracers /usr/lib/accumulo/conf/
+#cp /vagrant/gc /usr/lib/accumulo/conf/
+cp -r /vagrant/vagrant/accumulo/* conf/
 #bin/accumulo init --instance-name dev --password dev
 #bin/start-all.sh
-
 #sudo $ACCUMULO_HOME/bin/accumulo shell -z dev 172.16.25.10
