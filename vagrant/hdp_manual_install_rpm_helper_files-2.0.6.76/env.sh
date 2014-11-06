@@ -16,6 +16,6 @@
 #!/bin/bash -x
 
 hdp_config_dir=/vagrant/vagrant/hdp_manual_install_rpm_helper_files-2.0.6.76
-source $hdp_config_dir/scripts/usersAndGroups.sh 
-source $hdp_config_dir/scripts/directories.sh
+. $hdp_config_dir/scripts/usersAndGroups.sh
+. $hdp_config_dir/scripts/directories.sh
 export JAVA_HOME=/usr
