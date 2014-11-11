@@ -76,6 +76,7 @@ dependencies {
     compile "org.slf4j:slf4j-log4j12:1.7.7"
 
     compile 'org.apache.accumulo:accumulo-core:1.6.1'
+    compile 'com.typesafe:config:1.2.1'
 //    testCompile 'org.scalatest:scalatest_2.10:2.0'
 //    testCompile 'org.specs2:specs2_2.10:2.2.2'
 }

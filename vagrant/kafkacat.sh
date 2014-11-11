@@ -37,6 +37,6 @@ chmod a+rw -R /opt/github/edenhill
 cd /opt/github/edenhill
 git clone https://github.com/edenhill/kafkacat.git
 cd /opt/github/edenhill/kafkacat
-./bootstrap_kafka.sh
+./bootstrap.sh
 cp kafkacat /usr/local/bin/
 exitscript

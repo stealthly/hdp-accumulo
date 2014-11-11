@@ -2,6 +2,7 @@ package ly.stealth.hdpaccumulo
 
 import akka.actor.ActorSystem
 import com.sclasen.akka.kafka.{AkkaBatchConsumer, AkkaBatchConsumerProps}
+import com.typesafe.config.ConfigFactory
 import kafka.message.MessageAndMetadata
 import kafka.serializer.StringDecoder
 import org.apache.accumulo.core.client.security.tokens.PasswordToken
@@ -9,16 +10,17 @@ import org.apache.accumulo.core.client.{BatchWriterConfig, ZooKeeperInstance}
 
 object Main extends App {
 
+  val settings = new HdpAccumuloSettings(ConfigFactory.load())
+
   implicit val actorSystem = ActorSystem("kafkaAccumulo")
 
-  val inst = new ZooKeeperInstance("dev", "172.16.25.10:2121")
-  val conn = inst.getConnector("root", new PasswordToken("dev"))
+  val inst = new ZooKeeperInstance(settings.AccumuloSettings.ZkInstance, s"${settings.AccumuloSettings.ZkHost}:${settings.AccumuloSettings.ZkPort}")
+  val conn = inst.getConnector(settings.AccumuloSettings.User, new PasswordToken(settings.AccumuloSettings.Password))
 
-  val writer = conn.createBatchWriter("akka-kafka", new BatchWriterConfig())
+  val writer = conn.createBatchWriter("hdpaccumulo", new BatchWriterConfig())
 
   val accumuloPersister = actorSystem.actorOf(AccumuloPersister.props(writer), "AccumuloPersister")
 
-  // generic
   case class MsgAndMeta(topic:String, partition:Int, offset:Long, key:String, msg:String)
   case class MsgBatch(msgs: IndexedSeq[MsgAndMeta])
 
@@ -30,10 +32,10 @@ object Main extends App {
 
   val consumerProps = AkkaBatchConsumerProps.forSystem[String, String,MsgAndMeta,MsgBatch](
   system = actorSystem,
-  zkConnect = "192.168.86.5:2121",
+  zkConnect = s"${settings.KafkaConfig.ZkHost}:${settings.KafkaConfig.ZkPort}",
   topic = "your-kafka-topic",
   group = "your-consumer-group",
-  streams = 4, //one per partition
+  streams = settings.AkkaKafkaConfig.NrOfStrems,
   keyDecoder = new StringDecoder(),
   msgDecoder = new StringDecoder(),
   msgHandler = messageHandler,

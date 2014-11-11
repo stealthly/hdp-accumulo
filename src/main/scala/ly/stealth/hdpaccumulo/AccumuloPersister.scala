@@ -26,7 +26,9 @@ class AccumuloPersister(writer: BatchWriter) extends Actor with ActorLogging {
             m.put("meta", "topic", time, new Value(msgAndMeta.topic.getBytes))
             m.put("meta", "partition", time, new Value(msgAndMeta.partition.toString.getBytes))
 
-            m.put("data", "key", time, new Value(msgAndMeta.key.getBytes))
+            Option(msgAndMeta.key) foreach {
+              key => m.put("data", "key", time, new Value(key.getBytes))
+            }
             m.put("data", "message", time, new Value(msgAndMeta.msg.getBytes))
 
             m
