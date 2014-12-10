@@ -38,7 +38,7 @@
 
   <property>
     <name>instance.secret</name>
-    <value>DEFAULT</value>
+    <value>dev</value>
     <description>A secret unique to a given instance that all servers must know in order to communicate with one another.
       Change it before initialization. To
       change it later use ./bin/accumulo org.apache.accumulo.server.util.ChangeSecret --old [oldpasswd] --new [newpasswd],

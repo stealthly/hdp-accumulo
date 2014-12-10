@@ -50,7 +50,7 @@
   </property>
     <property>
     <name>dfs.permissions.enabled</name>
-    <value>true</value>
+    <value>false</value>
   </property>
     <property>
     <name>dfs.datanode.ipc.address</name>

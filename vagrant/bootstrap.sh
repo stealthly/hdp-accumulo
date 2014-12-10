@@ -34,7 +34,7 @@ echo "172.16.25.10 localhost hdpaccumulo" > /etc/hosts
 
 #some more prep for HDP
 hdp_config_dir=/vagrant/vagrant/hdp_manual_install_rpm_helper_files-2.0.6.76
-. $hdp_config_dir/env.sh
+source $hdp_config_dir/env.sh
 
 export JAVA_HOME=/usr
 export ACCUMULO_HOME=/usr/lib/accumulo

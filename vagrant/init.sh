@@ -13,9 +13,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash -x
+#!/bin/sh -Eux
 
-hdp_config_dir=/vagrant/vagrant/hdp_manual_install_rpm_helper_files-2.0.6.76
-. $hdp_config_dir/scripts/usersAndGroups.sh
-. $hdp_config_dir/scripts/directories.sh
-export JAVA_HOME=/usr
+#  Trap non-normal exit signals: 1/HUP, 2/INT, 3/QUIT, 15/TERM, ERR
+trap founderror 1 2 3 15 ERR
+
+founderror()
+{
+        exit 1
+}
+
+exitscript()
+{
+        #remove lock file
+        #rm $lockfile
+        exit 0
+}
+
+apt-get -y update
+apt-get install -y software-properties-common python-software-properties curl wget git screen ntp
+ntpq -p
+add-apt-repository -y ppa:webupd8team/java
+apt-get -y update
+/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+apt-get -y install oracle-java7-installer oracle-java7-set-default
+
+chmod a+rw -R /opt
+cd /
+ln -s /opt/stealthly/scala-kafka/ vagrant
+
+/vagrant/vagrant/kafka.sh #install kafka
+/vagrant/vagrant/kafkacat.sh #install the kafkacat utility
+
+exitscript

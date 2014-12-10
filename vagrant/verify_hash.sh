@@ -13,9 +13,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash -x
+#!/bin/sh -Eux
 
-hdp_config_dir=/vagrant/vagrant/hdp_manual_install_rpm_helper_files-2.0.6.76
-. $hdp_config_dir/scripts/usersAndGroups.sh
-. $hdp_config_dir/scripts/directories.sh
-export JAVA_HOME=/usr
+#  Trap non-normal exit signals: 1/HUP, 2/INT, 3/QUIT, 15/TERM, ERR
+trap founderror 1 2 3 15 ERR
+
+founderror()
+{
+        exit 1
+}
+
+exitscript()
+{
+        #remove lock file
+        #rm $lockfile
+        exit 0
+}
+
+hs=$(gpg --print-md $2 $1)
+hf=$(cat $1.$3)
+if [ "$hs" == "$hf" ]; then
+  echo "$2 ok"
+else
+  echo "error $hs != $hf"
+  founderror
+fi
+
+exitscript
